@@ -1,0 +1,143 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{877F58BF-7210-4A41-A495-007EACE238EE}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DataWings</RootNamespace>
+    <AssemblyName>DataWings</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation />
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.OracleClient" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Assertions\AccumulativeAssertion.cs" />
+    <Compile Include="Assertions\AssertThat.cs" />
+    <Compile Include="Assertions\AssertionException.cs" />
+    <Compile Include="Assertions\Conventions\ConventionFinder.cs" />
+    <Compile Include="Assertions\Conventions\DbIdConventionAttribute.cs" />
+    <Compile Include="Assertions\Conventions\DbTableNameConventionAttribute.cs" />
+    <Compile Include="Assertions\DbAssert.cs" />
+    <Compile Include="Assertions\DataWingsAssertionException.cs" />
+    <Compile Include="Assertions\DbAssertExtensions.cs" />
+    <Compile Include="Assertions\DbAssertion.cs" />
+    <Compile Include="Common\ConnectionAttribute.cs" />
+    <Compile Include="Common\ConnectionExecutorFinder.cs" />
+    <Compile Include="Common\Extensions.cs" />
+    <Compile Include="Assertions\IAccumulativeAssertion.cs" />
+    <Compile Include="Assertions\IExecutableAssertion.cs" />
+    <Compile Include="Common\ISqlProvider.cs" />
+    <Compile Include="Common\ISqlProviderFactory.cs" />
+    <Compile Include="Common\ISqlResult.cs" />
+    <Compile Include="Common\Oracle\OracleProvider.cs" />
+    <Compile Include="Common\ProvisionedProvider.cs" />
+    <Compile Include="Common\SqlBasedAccumulativeAssertion.cs" />
+    <Compile Include="Common\SqlProviderBase.cs" />
+    <Compile Include="Common\SqlResult.cs" />
+    <Compile Include="Common\Sql\SqlServerProvider.cs" />
+    <Compile Include="DataAdversary\Adversary.cs" />
+    <Compile Include="DataAdversary\ExecutableAdversary.cs" />
+    <Compile Include="DataAdversary\IAdversary.cs" />
+    <Compile Include="DataMaintenance\Column.cs" />
+    <Compile Include="DataMaintenance\DataBatch.cs" />
+    <Compile Include="DataMaintenance\DataBoy.cs" />
+    <Compile Include="DataMaintenance\DataRow.cs" />
+    <Compile Include="DataMaintenance\DataSession.cs" />
+    <Compile Include="DataMaintenance\IColumnValuePair.cs" />
+    <Compile Include="DataMaintenance\IDataAccumulator.cs" />
+    <Compile Include="DataMaintenance\IValueQuery.cs" />
+    <Compile Include="DataMaintenance\ReturnValue.cs" />
+    <Compile Include="DataMaintenance\ReturnValueCommand.cs" />
+    <Compile Include="DataMaintenance\ValueQuery.cs" />
+    <Compile Include="DataMaintenance\ValueQueryWhere.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Common\SQLite\" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
