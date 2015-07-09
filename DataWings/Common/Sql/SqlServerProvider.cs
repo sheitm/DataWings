@@ -18,6 +18,11 @@ namespace DataWings.Common.Sql
         {
         }
 
+        public override SqlVendor Vendor
+        {
+            get { return SqlVendor.SqlServer; }
+        }
+
         /// <summary>
         /// Gets the connection. Must be overridden by subclasses.
         /// </summary>

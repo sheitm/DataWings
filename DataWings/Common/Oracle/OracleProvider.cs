@@ -18,6 +18,11 @@ namespace DataWings.Common.Oracle
         {
         }
 
+        public override SqlVendor Vendor
+        {
+            get { return SqlVendor.Oracle; }
+        }
+
         /// <summary>
         /// Gets the connection. Must be overridden by subclasses.
         /// </summary>

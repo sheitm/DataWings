@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
@@ -59,7 +60,7 @@ namespace DataWings.DataMaintenance
             }
             else
             {
-                string statement = update ? GetUpdateStatement() : GetInsertStatement();
+                string statement = update ? GetUpdateStatement(provider.Vendor) : GetInsertStatement(provider.Vendor);
                 provider.ExecuteNonQuery(statement);
             }
 
@@ -265,7 +266,7 @@ namespace DataWings.DataMaintenance
                                  idKeyValuePair.Value);
         }
 
-        private string GetUpdateStatement()
+        private string GetUpdateStatement(SqlVendor vendor)
         {
             var sb = new StringBuilder();
 
@@ -279,7 +280,7 @@ namespace DataWings.DataMaintenance
             foreach (var pair in query)
             {
                 var columnValue = pair.Value;
-                sb.AppendFormat("{0} = {1}", columnValue.Key, columnValue.Value);
+                sb.AppendFormat("{0} = {1}", columnValue.Key, columnValue.GetValue(vendor));
                 if (i < (queryCount - 1))
                 {
                     sb.Append(", ");
@@ -298,7 +299,7 @@ namespace DataWings.DataMaintenance
             return sb.ToString();
         }
 
-        private string GetInsertStatement()
+        private string GetInsertStatement(SqlVendor vendor)
         {
             var headerSb = new StringBuilder();
             var valuesSb = new StringBuilder();
@@ -309,7 +310,7 @@ namespace DataWings.DataMaintenance
             foreach (var columnValue in _columnValues.Values)
             {
                 headerSb.Append(columnValue.Key);
-                valuesSb.Append(columnValue.Value);
+                valuesSb.Append(columnValue.GetValue(vendor));
                 if (i < (_columnValues.Count-1))
                 {
                     headerSb.Append(", ");
@@ -332,11 +333,8 @@ namespace DataWings.DataMaintenance
             if (_columnValues.ContainsKey(key))
                 throw new ArgumentException("Column named " + columnName + " already added");
 
-            var columnValue = new ColumnValue
-                                  {
-                                      Key = key,
-                                      Value = shouldFormatValue ? value.ToSqlValueString() : value.ToString()
-                                  };
+            var columnValue = new ColumnValue { Key = key };
+            columnValue.SetValue(value, shouldFormatValue);
             _columnValues.Add(key, columnValue);
         }
 
@@ -346,12 +344,38 @@ namespace DataWings.DataMaintenance
     public interface IColumnValue
     {
         string Key { get; }
-        string Value { get; }
+        void SetValue(object val, bool shouldFormat);
+        string GetValue(SqlVendor vendor);
     }
 
     public class ColumnValue : IColumnValue
     {
+        private object _value;
+        private bool _shouldFormat;
+
         public string Key { get; set; }
-        public string Value { get; set; }
+        public void SetValue(object val, bool shouldFormat)
+        {
+            _value = val;
+            _shouldFormat = shouldFormat;
+        }
+
+        public string GetValue(SqlVendor vendor)
+        {
+            if (SqlVendor.Oracle == vendor && _value is DateTime)
+            {
+                var dt = (DateTime) _value;
+                return string.Format(
+                    "to_date('{0}/{1}/{2} {3}:{4}:{5}', 'YYYY/MM/DD HH:MI:SS')",
+                    dt.Year,
+                    dt.Month.ToString(CultureInfo.InvariantCulture).PadLeft(2, '0'),
+                    dt.Day.ToString(CultureInfo.InvariantCulture).PadLeft(2, '0'),
+                    dt.Hour.ToString(CultureInfo.InvariantCulture).PadLeft(2, '0'),
+                    dt.Minute.ToString(CultureInfo.InvariantCulture).PadLeft(2, '0'),
+                    dt.Second.ToString(CultureInfo.InvariantCulture).PadLeft(2, '0'));
+            }
+
+            return _shouldFormat ? _value.ToSqlValueString() : _value.ToString();
+        }
     }
 }

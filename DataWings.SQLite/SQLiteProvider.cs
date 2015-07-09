@@ -18,6 +18,11 @@ namespace DataWings.SQLite
         {
         }
 
+        public override SqlVendor Vendor
+        {
+            get { return SqlVendor.Provisioned; }
+        }
+
         /// <summary>
         /// Gets the connection, in this case a System.Data.SQLite
         /// connection

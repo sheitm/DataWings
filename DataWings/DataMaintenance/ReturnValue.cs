@@ -40,6 +40,16 @@ namespace DataWings.DataMaintenance
             get { return ColumnName; }
         }
 
+        public void SetValue(object val, bool shouldFormat)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetValue(SqlVendor vendor)
+        {
+            return Value;
+        }
+
         public string Value
         {
             get

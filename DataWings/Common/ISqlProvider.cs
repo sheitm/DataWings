@@ -73,5 +73,7 @@ namespace DataWings.Common
         /// </summary>
         /// <value>The connection string.</value>
         string ConnectionString { get; }
+
+        SqlVendor Vendor { get; }
     }
 }

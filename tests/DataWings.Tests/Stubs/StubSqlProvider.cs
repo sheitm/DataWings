@@ -97,7 +97,9 @@ namespace DataWings.Tests.Stubs
             get { throw new NotImplementedException(); }
         }
 
-       public string GetExecutedQuery(int index)
+        public SqlVendor Vendor { get { return SqlVendor.Provisioned; } }
+
+        public string GetExecutedQuery(int index)
        {
            return executedQueries[index];
        }

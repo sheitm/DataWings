@@ -48,6 +48,8 @@ namespace DataWings.Common
             SqlExecuted(sql);
         }
 
+        public abstract SqlVendor Vendor { get; }
+
         public string ConnectionString
         {
             get { return connectionString; }
