@@ -1,5 +1,5 @@
 ﻿using System.Data.Common;
-using System.Data.OracleClient;
+using Oracle.ManagedDataAccess.Client;
 
 namespace DataWings.Common.Oracle
 {
